@@ -51,40 +51,26 @@ if (uri_string() != "") {
 
   <?= $this->include('components/sidebar') ?>
 
-  <main id="main" class="main">
+  
 
-    <div class="pagetitle">
-      <h1>Data Tables</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">Home</li>
-          <?php
-          if ($hlm != "Home") {
-          ?>
-            <li class="breadcrumb-item"><?php echo $hlm ?></li>
-          <?php
-          }
-          ?>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $hlm ?></h5>
-              <?= $this->renderSection('content') ?>
-            </div>
+  <section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <?php if ($hlm == 'Home') : ?>
+        <!-- Khusus halaman Home: tampil full tanpa card -->
+        <?= $this->renderSection('content') ?>
+      <?php else : ?>
+        <!-- Halaman lain tetap dalam card -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><?= $hlm ?></h5>
+            <?= $this->renderSection('content') ?>
           </div>
-
         </div>
-      </div>
-    </section>
-
-  </main><!-- End #main -->
+      <?php endif ?>
+    </div>
+  </div>
+</section>
 
   <?= $this->include('components/footer') ?>
 

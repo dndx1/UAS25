@@ -41,3 +41,4 @@ $routes->get('get-location', 'TransaksiController::getLocation', ['filter' => 'a
 $routes->get('get-cost', 'TransaksiController::getCost', ['filter' => 'auth']);
 
 $routes->resource('api', ['controller' => 'apiController']);
+$routes->get('produk/search', 'ProdukController::search');

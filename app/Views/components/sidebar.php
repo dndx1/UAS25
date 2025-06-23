@@ -1,39 +1,446 @@
-<!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
+<!-- ======= Top Navigation Bar ======= -->
+<nav class="navbar navbar-expand-lg fixed-top modern-navbar">
+    <div class="container-fluid">
+        <!-- Brand Logo -->
+        <a class="navbar-brand" href="/">
+            <i class="bi bi-shop me-2"></i>
+            <span class="brand-text">Blangkis - Blankon Pakis</span>
+        </a>
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <li class="nav-item">
-            <a class="nav-link <?php echo (uri_string() == '') ? "" : "collapsed" ?>" href="/">
-                <i class="bi bi-grid"></i>
-                <span>Home</span>
-            </a>
-        </li><!-- End Home Nav -->
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (uri_string() == '') ? "active" : "" ?>" href="/">
+                        <i class="bi bi-grid me-1"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
 
-        <li class="nav-item">
-            <a class="nav-link <?php echo (uri_string() == 'keranjang') ? "" : "collapsed" ?>" href="keranjang">
-                <i class="bi bi-cart-check"></i>
-                <span>Keranjang</span>
-            </a>
-        </li><!-- End Keranjang Nav -->
-        <?php
-        if (session()->get('role') == 'admin') {
-        ?>
-            <li class="nav-item">
-                <a class="nav-link <?php echo (uri_string() == 'produk') ? "" : "collapsed" ?>" href="produk">
-                    <i class="bi bi-receipt"></i>
-                    <span>Produk</span>
-                </a>
-            </li><!-- End Produk Nav -->
-        <?php
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (uri_string() == 'keranjang') ? "active" : "" ?>" href="keranjang">
+                        <i class="bi bi-cart-check me-1"></i>
+                        <span>Keranjang</span>
+                        <span class="cart-badge">3</span> <!-- You can make this dynamic -->
+                    </a>
+                </li>
+
+                <?php if (session()->get('role') == 'admin') { ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo (uri_string() == 'produk') ? "active" : "" ?>" href="produk">
+                            <i class="bi bi-receipt me-1"></i>
+                            <span>Produk</span>
+                        </a>
+                    </li>
+                <?php } ?>
+
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (uri_string() == 'profile') ? "active" : "" ?>" href="profile">
+                        <i class="bi bi-person me-1"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right Side Items -->
+            <ul class="navbar-nav">
+                <!-- Search Bar -->
+                <li class="nav-item me-3">
+                    <form class="search-form" action="/produk/search" method="get">
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Search products..." name="q">
+                            <button type="submit" class="search-btn">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+
+
+                </li>
+
+                <!-- User Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle user-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="user-avatar">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <span class="user-name">
+                            <?= session()->get('isLoggedIn') ? session()->get('username') : 'Guest' ?>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end user-menu">
+                        <?php if (session()->get('isLoggedIn')): ?>
+                            <li><a class="dropdown-item" href="<?= base_url('profile') ?>"><i class="bi bi-person me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('keranjang') ?>"><i class="bi bi-cart me-2"></i>My Cart</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            <li><a class="dropdown-item text-danger" href="<?= base_url('logout') ?>"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        <?php else: ?>
+                            <li><a class="dropdown-item text-primary" href="<?= base_url('login') ?>"><i class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Spacer to prevent content from hiding behind fixed navbar -->
+<div class="navbar-spacer"></div>
+
+<style>
+    /* Modern Navbar Styles */
+    .modern-navbar {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 0;
+        transition: all 0.3s ease;
+        z-index: 1030;
+    }
+
+    .modern-navbar.scrolled {
+        background: rgba(102, 126, 234, 0.95);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-brand {
+        color: white !important;
+        font-weight: 700;
+        font-size: 1.5rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-brand:hover {
+        transform: scale(1.05);
+        color: #f8f9fa !important;
+    }
+
+    .brand-text {
+        background: linear-gradient(45deg, #ffffff, #e3f2fd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+    }
+
+    .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 500;
+        padding: 0.75rem 1rem !important;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 0 0.2rem;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: white !important;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .navbar-nav .nav-link.active {
+        color: white !important;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-nav .nav-link.active::before {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 3px;
+        background: white;
+        border-radius: 2px;
+    }
+
+    /* Cart Badge */
+    .cart-badge {
+        background: #ff4757;
+        color: white;
+        font-size: 0.7rem;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: 5px;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
         }
-        ?>
-        <li class="nav-item">
-            <a class="nav-link <?php echo (uri_string() == 'profile') ? "" : "collapsed" ?>" href="profile">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
-            </a>
-        </li><!-- End Profile Nav -->
-    </ul>
 
-</aside><!-- End Sidebar-->
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Search Form */
+    .search-form {
+        margin: 0;
+    }
+
+    .search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-input {
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        color: white;
+        padding: 8px 45px 8px 15px;
+        font-size: 0.9rem;
+        width: 250px;
+        transition: all 0.3s ease;
+    }
+
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .search-input:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+        width: 300px;
+    }
+
+    .search-btn {
+        position: absolute;
+        right: 5px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+    }
+
+    /* User Dropdown */
+    .user-dropdown {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem !important;
+    }
+
+    .user-avatar {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .user-name {
+        font-weight: 600;
+    }
+
+    .user-menu {
+        background: white;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        margin-top: 0.5rem;
+        padding: 0.5rem 0;
+        min-width: 200px;
+    }
+
+    .user-menu .dropdown-item {
+        padding: 0.7rem 1.5rem;
+        color: #2c3e50;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .user-menu .dropdown-item:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateX(5px);
+    }
+
+    .user-menu .dropdown-item.text-danger:hover {
+        background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+    }
+
+    /* Mobile Responsive */
+    .navbar-toggler {
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        padding: 0.5rem;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* Navbar Spacer */
+    .navbar-spacer {
+        height: 80px;
+        /* Adjust based on your navbar height */
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 991.98px) {
+        .modern-navbar {
+            padding: 0.75rem 0;
+        }
+
+        .navbar-collapse {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .search-input:focus {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link {
+            padding: 0.75rem !important;
+            margin: 0.2rem 0;
+        }
+
+        .user-dropdown {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 1rem;
+            padding-top: 1rem !important;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .brand-text {
+            display: none;
+        }
+
+        .navbar-brand {
+            font-size: 1.2rem;
+        }
+
+        .search-container {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .search-input {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    /* Smooth scrolling and navbar behavior */
+    html {
+        scroll-padding-top: 80px;
+    }
+
+    /* Animation for mobile menu */
+    .navbar-collapse {
+        transition: all 0.3s ease;
+    }
+
+    .navbar-collapse.show {
+        animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<script>
+    // Add scroll effect to navbar
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.modern-navbar');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    const navbarToggler = document.querySelector('.navbar-toggler');
+                    navbarToggler.click();
+                }
+            });
+        });
+
+        // Enhanced search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchForm = document.querySelector('.search-form');
+
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                window.location.href = `/produk/search?q=${encodeURIComponent(searchTerm)}`;
+            }
+        });
+
+
+        // Add typing effect to search placeholder
+        let placeholderTexts = ['Search products...', 'Find amazing deals...', 'Discover new items...'];
+        let currentText = 0;
+
+        setInterval(() => {
+            currentText = (currentText + 1) % placeholderTexts.length;
+            searchInput.placeholder = placeholderTexts[currentText];
+        }, 3000);
+    });
+</script>
