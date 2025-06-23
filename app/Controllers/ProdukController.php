@@ -123,4 +123,5 @@ class ProdukController extends BaseController
 
         return view('search_result', $data);
     }
+    
 }

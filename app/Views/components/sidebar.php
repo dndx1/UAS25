@@ -23,7 +23,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link <?php echo (uri_string() == 'keranjang') ? "active" : "" ?>" href="keranjang">
+                    <a class="nav-link <?php echo (uri_string() == 'keranjang') ? "active" : "" ?>" href="/keranjang">
                         <i class="bi bi-cart-check me-1"></i>
                         <span>Keranjang</span>
                         <span class="cart-badge">3</span> <!-- You can make this dynamic -->
@@ -32,7 +32,7 @@
 
                 <?php if (session()->get('role') == 'admin') { ?>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo (uri_string() == 'produk') ? "active" : "" ?>" href="produk">
+                        <a class="nav-link <?php echo (uri_string() == 'produk') ? "active" : "" ?>" href="/produk">
                             <i class="bi bi-receipt me-1"></i>
                             <span>Produk</span>
                         </a>
@@ -40,7 +40,7 @@
                 <?php } ?>
 
                 <li class="nav-item">
-                    <a class="nav-link <?php echo (uri_string() == 'profile') ? "active" : "" ?>" href="profile">
+                    <a class="nav-link <?php echo (uri_string() == 'profile') ? "active" : "" ?>" href="/profile">
                         <i class="bi bi-person me-1"></i>
                         <span>Profile</span>
                     </a>
