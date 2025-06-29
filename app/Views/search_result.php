@@ -3,21 +3,9 @@
 
 <style>
     .search-results-container {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         min-height: 100vh;
         padding: 2rem 0;
         position: relative;
-    }
-    
-    .search-results-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-        opacity: 0.5;
     }
     
     .search-header {
@@ -27,7 +15,7 @@
         padding: 2rem;
         margin-bottom: 2rem;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(212, 175, 55, 0.3);
         position: relative;
         z-index: 1;
     }
@@ -39,7 +27,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background: linear-gradient(90deg, #d4af37, #b8860b, #daa520, #cd853f);
         background-size: 300% 100%;
         animation: gradientShift 3s ease infinite;
         border-radius: 20px 20px 0 0;
@@ -53,7 +41,7 @@
     .search-title {
         font-size: 2rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #d4af37, #b8860b);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -64,7 +52,7 @@
     }
     
     .search-title i {
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #d4af37, #b8860b);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -72,15 +60,15 @@
     }
     
     .search-keyword {
-        color: #e74c3c;
+        color: #d4af37;
         font-weight: 600;
         text-decoration: underline;
-        text-decoration-color: rgba(231, 76, 60, 0.3);
+        text-decoration-color: rgba(212, 175, 55, 0.5);
         text-underline-offset: 4px;
     }
     
     .results-count {
-        color: #7f8c8d;
+        color: #6d4c41;
         font-size: 1rem;
         margin-top: 0.5rem;
         display: flex;
@@ -96,7 +84,7 @@
     .product-card {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(212, 175, 55, 0.2);
         border-radius: 20px;
         overflow: hidden;
         transition: all 0.4s ease;
@@ -108,6 +96,7 @@
     .product-card:hover {
         transform: translateY(-10px) scale(1.02);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        border-color: rgba(212, 175, 55, 0.6);
     }
     
     .product-card::before {
@@ -117,7 +106,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, transparent, rgba(102, 126, 234, 0.1));
+        background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.1));
         opacity: 0;
         transition: opacity 0.3s ease;
         pointer-events: none;
@@ -165,13 +154,13 @@
         position: absolute;
         top: 1rem;
         right: 1rem;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+        color: #2c1810;
         padding: 0.5rem 1rem;
         border-radius: 50px;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 0.9rem;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         z-index: 2;
     }
     
@@ -196,7 +185,7 @@
     .product-price {
         font-size: 1.5rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        background: linear-gradient(135deg, #d4af37, #b8860b);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -204,22 +193,22 @@
     }
     
     .btn-detail {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
+        background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
+        border: 2px solid #d4af37;
         border-radius: 50px;
         padding: 0.75rem 2rem;
         font-size: 1rem;
         font-weight: 600;
-        color: white;
+        color: #d4af37;
         width: 100%;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        text-decoration: none;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
+        cursor: pointer;
     }
     
     .btn-detail::before {
@@ -229,7 +218,7 @@
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        background: linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent);
         transition: left 0.5s ease;
     }
     
@@ -239,18 +228,20 @@
     
     .btn-detail:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        color: white;
-        text-decoration: none;
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+        color: #2c1810;
+        border-color: #d4af37;
     }
     
     .no-results {
         text-align: center;
         padding: 4rem 2rem;
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(62, 39, 35, 0.95);
         backdrop-filter: blur(20px);
         border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border: 2px solid rgba(212, 175, 55, 0.3);
         margin-top: 2rem;
         position: relative;
         z-index: 1;
@@ -258,7 +249,7 @@
     
     .no-results-icon {
         font-size: 4rem;
-        color: #bdc3c7;
+        color: #8d6e63;
         margin-bottom: 1.5rem;
         animation: bounce 2s infinite;
     }
@@ -276,25 +267,29 @@
     }
     
     .no-results h3 {
-        color: #7f8c8d;
+        color: #d7ccc8;
         font-size: 1.5rem;
         margin-bottom: 1rem;
     }
     
     .no-results p {
-        color: #95a5a6;
+        color: #a1887f;
         font-size: 1.1rem;
         margin-bottom: 2rem;
     }
     
+    .no-results strong {
+        color: #d4af37;
+    }
+    
     .btn-back-search {
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        border: none;
+        background: linear-gradient(135deg, #8d6e63, #5d4037);
+        border: 2px solid #d4af37;
         border-radius: 50px;
         padding: 1rem 2rem;
         font-size: 1.1rem;
         font-weight: 600;
-        color: white;
+        color: #d4af37;
         text-decoration: none;
         transition: all 0.3s ease;
         display: inline-flex;
@@ -304,9 +299,116 @@
     
     .btn-back-search:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
-        color: white;
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+        color: #2c1810;
         text-decoration: none;
+        border-color: #d4af37;
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 80px; /* Space for navbar */
+        width: 100%;
+        height: calc(100% - 80px);
+        background-color: rgba(0,0,0,0.8);
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,250,250,0.95));
+        backdrop-filter: blur(20px);
+        margin: 3% auto;
+        padding: 25px;
+        border-radius: 20px;
+        width: 85%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        border: 2px solid rgba(212, 175, 55, 0.3);
+        position: relative;
+        animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-50px) scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .modal-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #d4af37, #b8860b, #daa520);
+        border-radius: 20px 20px 0 0;
+    }
+
+    .close {
+        color: #8d6e63;
+        float: right;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(212, 175, 55, 0.1);
+        margin: -10px -10px 10px 0;
+    }
+
+    .close:hover {
+        color: #d4af37;
+        background: rgba(212, 175, 55, 0.2);
+        transform: rotate(90deg) scale(1.1);
+    }
+
+    .modal-content img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .modal-content img:hover {
+        transform: scale(1.02);
+    }
+
+    .modal-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0;
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .modal-price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #8d6e63;
+        margin-top: 10px;
     }
     
     .floating-elements {
@@ -321,7 +423,7 @@
     .floating-shape {
         position: absolute;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(212, 175, 55, 0.1);
         animation: floatMove 8s ease-in-out infinite;
     }
     
@@ -378,6 +480,16 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
         }
+
+        .modal-content {
+            width: 95%;
+            margin: 10% auto;
+            padding: 20px;
+        }
+
+        .modal-content img {
+            height: 250px;
+        }
     }
     
     @media (max-width: 576px) {
@@ -392,6 +504,21 @@
         
         .product-card {
             border-radius: 15px;
+        }
+
+        .modal {
+            top: 60px;
+            height: calc(100% - 60px);
+        }
+
+        .modal-content {
+            width: 98%;
+            margin: 5% auto;
+            padding: 15px;
+        }
+
+        .modal-content img {
+            height: 200px;
         }
     }
 </style>
@@ -441,10 +568,10 @@
                                     <div class="product-price">
                                         Rp<?= number_format($p['harga'], 0, ',', '.') ?>
                                     </div>
-                                    <a href="<?= base_url('produk/detail/' . $p['id']) ?>" class="btn-detail">
+                                    <button onclick="showImageDetail('<?= base_url('img/' . $p['foto']) ?>', '<?= esc($p['nama']) ?>', '<?= number_format($p['harga'], 0, ',', '.') ?>')" class="btn-detail">
                                         <i class="fas fa-eye"></i>
                                         Lihat Detail
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -469,11 +596,55 @@
     </div>
 </div>
 
+<!-- Image Detail Modal -->
+<div id="imageModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="">
+        <h4 id="modalTitle" class="modal-title"></h4>
+        <div id="modalPrice" class="modal-price"></div>
+    </div>
+</div>
+
 <!-- Font Awesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <script>
+function showImageDetail(imageSrc, productName, productPrice) {
+    document.getElementById('modalImage').src = imageSrc;
+    document.getElementById('modalTitle').textContent = productName;
+    document.getElementById('modalPrice').textContent = 'Rp' + productPrice;
+    document.getElementById('imageModal').style.display = 'block';
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+}
+
+// Close modal function
+function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Close button event
+    document.querySelector('.close').onclick = closeModal;
+    
+    // Click outside modal to close
+    window.onclick = function(event) {
+        const modal = document.getElementById('imageModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+    
+    // ESC key to close modal
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+    
     // Add loading animation to detail buttons
     const detailButtons = document.querySelectorAll('.btn-detail');
     
@@ -482,10 +653,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalContent = this.innerHTML;
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
             
-            // Reset after a short delay in case navigation fails
+            // Reset after a short delay
             setTimeout(() => {
                 this.innerHTML = originalContent;
-            }, 3000);
+            }, 800);
         });
     });
     
@@ -516,10 +687,9 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
     
-    // Add hover sound effect (optional)
+    // Add hover effects
     cards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            // You can add a subtle sound effect here if desired
             this.style.willChange = 'transform';
         });
         

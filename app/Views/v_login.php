@@ -362,49 +362,11 @@ $password = [
                     <div class="batik-decoration"></div>
                     
                     <!-- Logo Section with Blangkon -->
-                    <div class="logo-container">
-                        <div class="blangkon-logo">
-                            <svg class="blangkon-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Blangkon Shape -->
-                                <defs>
-                                    <radialGradient id="blangkonGrad" cx="50%" cy="30%" r="70%">
-                                        <stop offset="0%" style="stop-color:#DEB887;stop-opacity:1" />
-                                        <stop offset="50%" style="stop-color:#D2691E;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#8B4513;stop-opacity:1" />
-                                    </radialGradient>
-                                    <radialGradient id="mondol" cx="50%" cy="50%" r="40%">
-                                        <stop offset="0%" style="stop-color:#CD853F;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#A0522D;stop-opacity:1" />
-                                    </radialGradient>
-                                </defs>
-                                
-                                <!-- Main Blangkon Body -->
-                                <path d="M15 45 Q15 25 50 25 Q85 25 85 45 Q85 65 70 70 L65 80 Q50 85 35 80 L30 70 Q15 65 15 45 Z" 
-                                      fill="url(#blangkonGrad)" stroke="#8B4513" stroke-width="1"/>
-                                
-                                <!-- Mondol (decorative knot) -->
-                                <circle cx="75" cy="45" r="8" fill="url(#mondol)" stroke="#8B4513" stroke-width="0.5"/>
-                                <circle cx="75" cy="45" r="4" fill="#DEB887"/>
-                                
-                                <!-- Batik Pattern -->
-                                <path d="M25 35 Q30 30 35 35 Q30 40 25 35" fill="none" stroke="#8B4513" stroke-width="0.8" opacity="0.6"/>
-                                <path d="M45 30 Q50 25 55 30 Q50 35 45 30" fill="none" stroke="#8B4513" stroke-width="0.8" opacity="0.6"/>
-                                <path d="M35 50 Q40 45 45 50 Q40 55 35 50" fill="none" stroke="#8B4513" stroke-width="0.8" opacity="0.6"/>
-                                
-                                <!-- Traditional dots -->
-                                <circle cx="40" cy="40" r="1.5" fill="#8B4513" opacity="0.7"/>
-                                <circle cx="60" cy="35" r="1.5" fill="#8B4513" opacity="0.7"/>
-                                <circle cx="45" cy="55" r="1.5" fill="#8B4513" opacity="0.7"/>
-                            </svg>
-                        </div>
-                        <h1 class="brand-title">Blangkis</h1>
-                        <p class="subtitle">Balkon Pukis - Sistem Tradisional</p>
-                    </div>
-
+                   
                     <!-- Login Header -->
                     <div class="login-header">
-                        <h2>Sugeng Rawuh!</h2>
-                        <p>Monggo dipun lebeti kangge ngakses sistem</p>
+                        <h2>Selamat Datang</h2>
+                        <p>Login Untuk Masuk</p>
                     </div>
 
                     <!-- Error Alert -->
@@ -423,7 +385,7 @@ $password = [
                             <?= form_input($username) ?>
                             <i class="fas fa-user input-icon"></i>
                             <div class="invalid-feedback">
-                                Mangga dipun isi jeneng pangguna ingkang sah.
+                                Username Anda
                             </div>
                         </div>
 
@@ -432,13 +394,13 @@ $password = [
                             <?= form_password($password) ?>
                             <i class="fas fa-lock input-icon"></i>
                             <div class="invalid-feedback">
-                                Mangga dipun isi tembung wadi.
+                                Password Anda
                             </div>
                         </div>
 
                         <!-- Submit Button -->
                         <div class="d-grid">
-                            <?= form_submit('submit', 'Mlebet Sistem', ['class' => 'btn btn-login']) ?>
+                            <?= form_submit('submit', 'Login', ['class' => 'btn btn-login']) ?>
                         </div>
 
                     <?= form_close() ?>
@@ -446,8 +408,8 @@ $password = [
 
                 <!-- Footer Credits -->
                 <div class="footer-credits">
-                    Dipun damel kanthi ❤️ dening <a href="https://bootstrapmade.com/" target="_blank">BootstrapMade</a>
-                    <br><small>Tema Blangkon - Budaya Jawa</small>
+                    Dibuat dengan<a href="https://bootstrapmade.com/" target="_blank">BootstrapMade</a>
+                    <br><small>Blangkis - Blangkon Pakis</small>
                 </div>
             </div>
         </div>
@@ -512,13 +474,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const headerTitle = document.querySelector('.login-header h2');
     
     if (currentHour < 10) {
-        headerTitle.textContent = 'Sugeng Enjing!';
+        headerTitle.textContent = 'Selamat Pagi!';
     } else if (currentHour < 15) {
-        headerTitle.textContent = 'Sugeng Siang!';
+        headerTitle.textContent = 'Selamat Siang!';
     } else if (currentHour < 18) {
-        headerTitle.textContent = 'Sugeng Sonten!';
+        headerTitle.textContent = 'Selamat Sore!';
     } else {
-        headerTitle.textContent = 'Sugeng Dalu!';
+        headerTitle.textContent = 'Selamat Malam!';
     }
 });
 </script>

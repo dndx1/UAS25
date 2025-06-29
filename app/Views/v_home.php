@@ -351,7 +351,7 @@
                     data-harga="<?= number_to_currency($item['harga'], 'IDR') ?>"
                     data-foto="<?= base_url("img/" . $item['foto']) ?>"
                 >
-                            <i class="fas fa-eye me-2"></i>Quick View
+                            <i class="fas fa-eye me-2"></i>LIhat Detail
                         </button>
                     </div>
                 </div>
@@ -360,7 +360,7 @@
                     <h3 class="product-name"><?php echo $item['nama'] ?></h3>
                     <div class="product-price"><?php echo number_to_currency($item['harga'], 'IDR') ?></div>
                     <button type="submit" class="buy-btn">
-                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                        <i class="fas fa-shopping-cart me-2"></i>Masukkan Keranjang
                     </button>
                 </div>
                 
@@ -375,7 +375,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content p-3">
       <div class="modal-header">
-        <h5 class="modal-title" id="quickViewLabel">Product Details</h5>
+        <h5 class="modal-title" id="quickViewLabel">Detail Produk</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column flex-md-row align-items-center gap-4">
@@ -392,15 +392,15 @@
 <!-- Features Section -->
 <section class="features-section">
     <div class="container">
-        <h2 class="section-title">Why Choose Us?</h2>
+        <h2 class="section-title">Kenapa Pilih Kami?</h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shipping-fast"></i>
                     </div>
-                    <h4>Fast Delivery</h4>
-                    <p>Lightning-fast shipping to your doorstep with real-time tracking</p>
+                    <h4>Pengiriman Cepat</h4>
+                    <p>Pengiriman dipastikan utama dalam proses pembelian</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -408,8 +408,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h4>Secure Payment</h4>
-                    <p>Your transactions are protected with bank-level security</p>
+                    <h4>Keamanan Transaksi</h4>
+                    <p>Transaksi dijamin dengan tenang dan aman</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -418,7 +418,7 @@
                         <i class="fas fa-headset"></i>
                     </div>
                     <h4>24/7 Support</h4>
-                    <p>Round-the-clock customer service for all your needs</p>
+                    <p>Selalu ada untuk membantu pelanggan</p>
                 </div>
             </div>
         </div>

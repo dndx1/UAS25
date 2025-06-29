@@ -66,3 +66,5 @@ $routes->group('admin', function($routes) {
 $routes->post('admin/order/diterima/(:num)', 'Admin\OrderController::diterima/$1');
 
 $routes->post('admin/order/update_status/(:num)', 'Admin\OrderController::update_status/$1');
+// Tambahkan route ini di bagian admin routes (sebelum route detail yang sudah ada)
+$routes->get('admin/order/get_detail/(:num)', 'Admin\OrderController::getDetail/$1');

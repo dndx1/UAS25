@@ -10,14 +10,14 @@ if (uri_string() != "") {
 
 <head>
   <!-- Bootstrap JS Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>- Toko - <?php echo $hlm ?></title>
+  <title>Blangkis-<?php echo $hlm ?></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -56,26 +56,26 @@ if (uri_string() != "") {
 
   <?= $this->include('components/sidebar') ?>
 
-  
+
 
   <section class="section">
-  <div class="row">
-    <div class="col-lg-12">
-      <?php if ($hlm == 'Home') : ?>
-        <!-- Khusus halaman Home: tampil full tanpa card -->
-        <?= $this->renderSection('content') ?>
-      <?php else : ?>
-        <!-- Halaman lain tetap dalam card -->
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"><?= $hlm ?></h5>
-            <?= $this->renderSection('content') ?>
+    <div class="row">
+      <div class="col-lg-12">
+        <?php if ($hlm == 'Home') : ?>
+          <!-- Khusus halaman Home: tampil full tanpa card -->
+          <?= $this->renderSection('content') ?>
+        <?php else : ?>
+          <!-- Halaman lain tetap dalam card -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><?= $hlm ?></h5>
+              <?= $this->renderSection('content') ?>
+            </div>
           </div>
-        </div>
-      <?php endif ?>
+        <?php endif ?>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <?= $this->include('components/footer') ?>
 
@@ -100,7 +100,7 @@ if (uri_string() != "") {
   <!-- Template Main JS File -->
   <script src="<?= base_url() ?>NiceAdmin/assets/js/main.js"></script>
 
-  <?= $this->renderSection('script') ?> 
+  <?= $this->renderSection('script') ?>
 </body>
 
 </html>

@@ -187,7 +187,7 @@
 <div id="invoice-template" class="invoice-template">
     <div class="invoice-header">
         <div class="company-info">
-            <h1>TOKO SEMARANG JAYA</h1>
+            <h1>TOKO Dania</h1>
             <p>Jl. Contoh No. 123, Semarang</p>
             <p>Telp: (024) 123-4567</p>
             <p>Email: info@tokosemarangjaya.com</p>

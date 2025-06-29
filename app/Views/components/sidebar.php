@@ -28,7 +28,7 @@
                         <a class="nav-link <?= (uri_string() == 'keranjang') ? 'active' : '' ?>" href="/keranjang">
                             <i class="bi bi-cart-check me-1"></i>
                             <span>Keranjang</span>
-                            <span class="cart-badge">3</span>
+                         
                         </a>
                     </li>
 
