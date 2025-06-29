@@ -141,40 +141,52 @@ class TransaksiController extends BaseController
     }
 
     public function buy()
-    {
-        if ($this->request->getPost()) {
-            $dataForm = [
-    'username' => $this->request->getPost('username'),
-    'total_harga' => $this->request->getPost('total_harga'),
-    'alamat' => $this->request->getPost('alamat'),
-    'ongkir' => $this->request->getPost('ongkir'),
-    'status' => 0,
-    'created_at' => date("Y-m-d H:i:s"),
-    'updated_at' => date("Y-m-d H:i:s")
-];
+{
+    if ($this->request->getPost()) {
+        // Upload bukti bayar
+        $buktiBayar = null;
+        $file = $this->request->getFile('bukti_bayar');
 
-
-            $this->transaction->insert($dataForm);
-
-            $last_insert_id = $this->transaction->getInsertID();
-
-            foreach ($this->cart->contents() as $value) {
-                $dataFormDetail = [
-                    'transaction_id' => $last_insert_id,
-                    'product_id' => $value['id'],
-                    'jumlah' => $value['qty'],
-                    'diskon' => 0,
-                    'subtotal_harga' => $value['qty'] * $value['price'],
-                    'created_at' => date("Y-m-d H:i:s"),
-                    'updated_at' => date("Y-m-d H:i:s")
-                ];
-
-                $this->transaction_detail->insert($dataFormDetail);
-            }
-
-            $this->cart->destroy();
-
-            return redirect()->to(base_url());
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move('uploads/bukti/', $newName);
+            $buktiBayar = $newName;
         }
+
+        $dataForm = [
+            'username' => $this->request->getPost('username'),
+            'total_harga' => $this->request->getPost('total_harga'),
+            'alamat' => $this->request->getPost('alamat'),
+            'ongkir' => $this->request->getPost('ongkir'),
+            'status' => 0,
+            'bukti_bayar' => $buktiBayar,
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ];
+
+        // Simpan transaksi utama
+        $this->transaction->insert($dataForm);
+        $last_insert_id = $this->transaction->getInsertID();
+
+        // Simpan detail barang
+        foreach ($this->cart->contents() as $value) {
+            $dataFormDetail = [
+                'transaction_id' => $last_insert_id,
+                'product_id' => $value['id'],
+                'jumlah' => $value['qty'],
+                'diskon' => 0,
+                'subtotal_harga' => $value['qty'] * $value['price'],
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ];
+            $this->transaction_detail->insert($dataFormDetail);
+        }
+
+        // Kosongkan keranjang
+        $this->cart->destroy();
+
+        return redirect()->to(base_url())->with('message', 'Transaksi berhasil, bukti pembayaran telah diunggah.');
     }
+}
+
 }

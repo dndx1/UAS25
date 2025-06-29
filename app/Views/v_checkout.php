@@ -95,8 +95,9 @@
 <div class="row">
     <div class="col-lg-6">
         <!-- Vertical Form -->
-        <?= form_open('buy', 'class="row g-3"', ['id' => 'checkout-form']) ?>
-        <?= form_hidden('username', session()->get('username')) ?>
+      <?= form_open('buy', ['class' => 'row g-3', 'enctype' => 'multipart/form-data'], ['id' => 'checkout-form']) ?>
+
+ <?= form_hidden('username', session()->get('username')) ?>
         <?= form_input(['type' => 'hidden', 'name' => 'total_harga', 'id' => 'total_harga', 'value' => '']) ?>
         <div class="col-12">
             <label for="nama" class="form-label">Nama</label>
@@ -118,6 +119,11 @@
             <label for="ongkir" class="form-label">Ongkir</label>
             <input type="text" class="form-control" id="ongkir" name="ongkir" readonly>
         </div>
+        <div class="col-12">
+    <label for="bukti_bayar" class="form-label">Upload Bukti Pembayaran</label>
+    <input type="file" class="form-control" name="bukti_bayar" id="bukti_bayar" accept=".jpg,.jpeg,.png,.pdf" required>
+</div>
+
     </div>
     <div class="col-lg-6">
         <!-- Vertical Form -->
@@ -325,26 +331,102 @@
             $("#total_harga").val(total);
         }
 
-        // Override form submit to generate PDF after successful order
+        // Fixed form submit handler
         $('#checkout-form').on('submit', function(e) {
             e.preventDefault();
             
             // Validate required fields
-            if (!$('#nama').val() || !$('#alamat').val() || !$('#kelurahan').val() || !$('#layanan').val()) {
-                alert('Mohon lengkapi semua field yang required!');
+            if (!$('#nama').val().trim()) {
+                alert('Mohon isi nama!');
+                $('#nama').focus();
+                return;
+            }
+            
+            if (!$('#alamat').val().trim()) {
+                alert('Mohon isi alamat!');
+                $('#alamat').focus();
+                return;
+            }
+            
+            if (!$('#kelurahan').val()) {
+                alert('Mohon pilih kelurahan!');
+                $('#kelurahan').focus();
+                return;
+            }
+            
+            if (!$('#layanan').val()) {
+                alert('Mohon pilih layanan pengiriman!');
+                $('#layanan').focus();
+                return;
+            }
+            
+            // Validate file upload
+            if (!$('#bukti_bayar')[0].files[0]) {
+                alert('Mohon upload bukti pembayaran!');
+                $('#bukti_bayar').focus();
+                return;
+            }
+            
+            // Validate file size (max 5MB)
+            const fileSize = $('#bukti_bayar')[0].files[0].size;
+            if (fileSize > 5 * 1024 * 1024) {
+                alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                $('#bukti_bayar').focus();
+                return;
+            }
+            
+            // Validate file type
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+            const fileType = $('#bukti_bayar')[0].files[0].type;
+            if (!allowedTypes.includes(fileType)) {
+                alert('Format file tidak didukung! Gunakan JPG, PNG, atau PDF.');
+                $('#bukti_bayar').focus();
                 return;
             }
             
             // Show confirmation
-            if (confirm('Apakah Anda ingin membuat pesanan dan download invoice PDF?')) {
-                // Generate PDF first
-                generatePDF();
+            if (confirm('Apakah Anda yakin ingin membuat pesanan ini?')) {
+                // Disable submit button to prevent double submission
+                const submitBtn = $(this).find('button[type="submit"]');
+                const originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Memproses...');
                 
-                // Then submit the form (you can uncomment this to actually submit)
-                // this.submit();
+                // Create FormData for file upload
+                const formData = new FormData(this);
                 
-                alert('Invoice PDF berhasil di-generate! Pesanan akan diproses.');
+                // Submit form via AJAX
+                $.ajax({
+                    url: $(this).attr('action') || '<?= base_url('buy') ?>',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert('Pesanan berhasil dibuat!');
+                        
+                        // Generate PDF after successful submission
+                        generatePDF();
+                        
+                        // Optional: redirect or reset form
+                        // window.location.href = '<?= base_url('success') ?>';
+                        
+                        // Re-enable button
+                        submitBtn.prop('disabled', false).text(originalText);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat membuat pesanan. Silakan coba lagi.');
+                        
+                        // Re-enable button
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
             }
+        });
+        
+        // Handle PDF button separately
+        $('.btn-pdf').on('click', function() {
+            generatePDF();
         });
     });
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers\Admin;
-
+use App\Models\OrderModel;
 
 use App\Controllers\BaseController;
 use App\Models\TransactionModel;
@@ -10,24 +10,45 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class OrderController extends BaseController
 {
-  public function index()
+    protected $transaction;
+
+    public function __construct()
     {
-        $db = \Config\Database::connect();
-        $builder = $db->table('transaction t');
-        $builder->select('t.id, t.total_harga, t.status, t.created_at, u.username, u.email');
-        $builder->join('user u', 't.username = u.username', 'left');
-        $builder->orderBy('t.created_at', 'DESC');
+        $this->transaction = new TransactionModel();
+    }
 
-        $query = $builder->get();
-        $data['orders'] = $query->getResultArray();
-
-        return view('Admin/v_order', $data);
+    public function index()
+{
+    $data['orders'] = $this->transaction->findAll();
+    $data['statusLabel'] = ['Menunggu', 'Diproses', 'Dikirim', 'Selesai', 'Dibatalkan'];
     
-        echo '<pre>';
-print_r($data['konsumen']);
-die;
+    return view('admin/v_order', $data); // <--- PENTING!
+}
+    public function update_status($id)
+    {
+        $newStatus = $this->request->getPost('status');
 
+        if ($newStatus !== null) {
+            $this->transaction->update($id, [
+                'status' => $newStatus,
+                'updated_at' => date("Y-m-d H:i:s")
+            ]);
 
+            return redirect()->back()->with('message', 'Status berhasil diperbarui.');
+        }
+
+        return redirect()->back()->with('error', 'Gagal memperbarui status.');
+    }
+
+     public function diterima($id)
+    {
+        // Update status ke "1" = Sudah Diterima
+        $this->transaction->update($id, [
+            'status' => 1,
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        return redirect()->back()->with('message', 'Status pesanan berhasil diperbarui.');
     }
 
 }

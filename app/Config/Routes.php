@@ -62,3 +62,7 @@ $routes->group('admin', function($routes) {
     $routes->post('konsumen/store', 'Admin\KonsumenController::store');
     $routes->get('konsumen/delete/(:num)', 'Admin\KonsumenController::delete/$1');
 });
+
+$routes->post('admin/order/diterima/(:num)', 'Admin\OrderController::diterima/$1');
+
+$routes->post('admin/order/update_status/(:num)', 'Admin\OrderController::update_status/$1');
