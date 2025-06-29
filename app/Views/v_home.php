@@ -2,9 +2,9 @@
 <?= $this->section('content') ?>
 
 <style>
-/* Modern E-commerce Styles */
+/* Traditional Blangkon E-commerce Styles */
 .hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);
     color: white;
     padding: 4rem 0;
     margin-bottom: 3rem;
@@ -19,7 +19,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="150" fill="url(%23a)"/><circle cx="800" cy="300" r="100" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23FFD700" stop-opacity="0.2"/><stop offset="100%" stop-color="%23FFD700" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="150" fill="url(%23a)"/><circle cx="800" cy="300" r="100" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
     animation: float 20s ease-in-out infinite;
 }
 
@@ -38,15 +38,17 @@
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
     animation: slideInDown 1s ease-out;
+    color: #FFD700;
 }
 
 .hero-subtitle {
     font-size: 1.3rem;
     margin-bottom: 2rem;
-    opacity: 0.9;
+    opacity: 0.95;
     animation: slideInUp 1s ease-out 0.3s both;
+    color: #F5DEB3;
 }
 
 @keyframes slideInDown {
@@ -70,15 +72,16 @@
     background: white;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.15);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    border: none;
+    border: 2px solid transparent;
 }
 
 .product-card:hover {
     transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    box-shadow: 0 25px 50px rgba(139, 69, 19, 0.25);
+    border-color: #DAA520;
 }
 
 .product-image {
@@ -104,7 +107,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+    background: linear-gradient(45deg, rgba(139, 69, 19, 0.85), rgba(218, 165, 32, 0.85));
     opacity: 0;
     transition: opacity 0.3s ease;
     display: flex;
@@ -118,13 +121,18 @@
 
 .quick-view-btn {
     background: white;
-    color: #667eea;
-    border: none;
+    color: #8B4513;
+    border: 2px solid #DAA520;
     padding: 10px 20px;
     border-radius: 25px;
     font-weight: 600;
     transform: translateY(20px);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.quick-view-btn:hover {
+    background: #DAA520;
+    color: white;
 }
 
 .product-card:hover .quick-view-btn {
@@ -146,12 +154,12 @@
 .product-price {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #667eea;
+    color: #8B4513;
     margin-bottom: 1rem;
 }
 
 .buy-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #8B4513 0%, #DAA520 50%, #CD853F 100%);
     border: none;
     color: white;
     padding: 12px 30px;
@@ -160,6 +168,7 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 .buy-btn::before {
@@ -169,7 +178,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
     transition: left 0.5s ease;
 }
 
@@ -179,7 +188,7 @@
 
 .buy-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 10px 20px rgba(139, 69, 19, 0.4);
 }
 
 .section-title {
@@ -199,12 +208,12 @@
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #8B4513 0%, #DAA520 100%);
     border-radius: 2px;
 }
 
 .success-alert {
-    background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+    background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
     border: none;
     border-radius: 15px;
     color: white;
@@ -214,7 +223,7 @@
 }
 
 .features-section {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #F5DEB3 0%, #DEB887 100%);
     padding: 4rem 0;
     margin-top: 4rem;
 }
@@ -224,19 +233,51 @@
     padding: 2rem;
     background: white;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+    transition: all 0.3s ease;
     margin-bottom: 2rem;
+    border: 2px solid transparent;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
+    border-color: #DAA520;
+    box-shadow: 0 10px 25px rgba(139, 69, 19, 0.2);
 }
 
 .feature-icon {
     font-size: 3rem;
-    color: #667eea;
+    color: #8B4513;
     margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    color: #DAA520;
+}
+
+.hero-stats h3 {
+    color: #FFD700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.hero-stats p {
+    color: #F5DEB3;
+}
+
+/* Modal styling updates */
+.modal-content {
+    border: 2px solid #DAA520;
+    border-radius: 20px;
+}
+
+.modal-title {
+    color: #8B4513;
+    font-weight: 700;
+}
+
+#quickViewPrice {
+    color: #8B4513 !important;
 }
 
 @media (max-width: 768px) {
@@ -263,21 +304,21 @@
 <section class="hero-section">
     <div class="container">
         <div class="hero-content">
-            <h1 class="hero-title">Discover Amazing Products</h1>
-            <p class="hero-subtitle">Premium quality items at unbeatable prices</p>
+            <h1 class="hero-title">Blangkis - Blangkon Pakis</h1>
+            <p class="hero-subtitle">Produk Lokal Kualitas Premium</p>
             <div class="hero-stats mt-4">
                 <div class="row text-center">
                     <div class="col-md-4">
                         <h3 class="fw-bold"><?= count($product) ?>+</h3>
-                        <p>Premium Products</p>
+                        <p>Premium Produk</p>
                     </div>
                     <div class="col-md-4">
                         <h3 class="fw-bold">24/7</h3>
-                        <p>Customer Support</p>
+                        <p>Dukungan Pelanggan</p>
                     </div>
                     <div class="col-md-4">
                         <h3 class="fw-bold">100%</h3>
-                        <p>Satisfaction Guarantee</p>
+                        <p>Jaminan Kepuasan</p>
                     </div>
                 </div>
             </div>
@@ -287,7 +328,7 @@
 
 <!-- Products Section -->
 <div class="container">
-    <h2 class="section-title">Featured Products</h2>
+    <h2 class="section-title">Produk Unggulan</h2>
     
     <div class="product-grid">
         <?php foreach ($product as $key => $item) : ?>
@@ -303,7 +344,13 @@
                 <div class="product-image">
                     <img src="<?php echo base_url() . "img/" . $item['foto'] ?>" alt="<?php echo $item['nama'] ?>">
                     <div class="product-overlay">
-                        <button type="button" class="quick-view-btn">
+                       <button type="button" class="quick-view-btn mt-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#quickViewModal"
+                    data-nama="<?= esc($item['nama']) ?>"
+                    data-harga="<?= number_to_currency($item['harga'], 'IDR') ?>"
+                    data-foto="<?= base_url("img/" . $item['foto']) ?>"
+                >
                             <i class="fas fa-eye me-2"></i>Quick View
                         </button>
                     </div>
@@ -321,6 +368,25 @@
             </div>
         <?php endforeach ?>
     </div>
+</div>
+
+<!-- Quick View Modal -->
+<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h5 class="modal-title" id="quickViewLabel">Product Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column flex-md-row align-items-center gap-4">
+        <img id="quickViewImage" src="" alt="Product Image" class="img-fluid rounded" style="max-width: 300px;">
+        <div>
+          <h3 id="quickViewName"></h3>
+          <p id="quickViewPrice" class="fw-bold text-primary fs-4 mb-3"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Features Section -->
@@ -396,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 height: ${size}px;
                 left: ${x}px;
                 top: ${y}px;
-                background: rgba(255,255,255,0.5);
+                background: rgba(255,215,0,0.5);
                 border-radius: 50%;
                 transform: scale(0);
                 animation: ripple 0.6s linear;
@@ -428,8 +494,14 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+document.querySelectorAll('.quick-view-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        document.getElementById('quickViewName').textContent = this.dataset.nama;
+        document.getElementById('quickViewPrice').textContent = this.dataset.harga;
+        document.getElementById('quickViewImage').src = this.dataset.foto;
+    });
+});
+
 </script>
-
-
 
 <?= $this->endSection() ?>

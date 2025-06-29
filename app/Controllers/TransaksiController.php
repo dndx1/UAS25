@@ -144,14 +144,15 @@ class TransaksiController extends BaseController
     {
         if ($this->request->getPost()) {
             $dataForm = [
-                'username' => $this->request->getPost('username'),
-                'total_harga' => $this->request->getPost('total_harga'),
-                'alamat' => $this->request->getPost('alamat'),
-                'ongkir' => $this->request->getPost('ongkir'),
-                'status' => 0,
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s")
-            ];
+    'username' => $this->request->getPost('username'),
+    'total_harga' => $this->request->getPost('total_harga'),
+    'alamat' => $this->request->getPost('alamat'),
+    'ongkir' => $this->request->getPost('ongkir'),
+    'status' => 0,
+    'created_at' => date("Y-m-d H:i:s"),
+    'updated_at' => date("Y-m-d H:i:s")
+];
+
 
             $this->transaction->insert($dataForm);
 

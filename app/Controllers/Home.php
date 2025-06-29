@@ -27,7 +27,7 @@ class Home extends BaseController
         $data['product'] = $product;
         return view('v_home', $data);
     }
-    public function profile()
+    public function pesanan()
     {
         $username = session()->get('username');
         $data['username'] = $username;
@@ -49,6 +49,6 @@ class Home extends BaseController
 
         $data['product'] = $product;
 
-        return view('v_profile', $data);
+        return view('v_pesanan', $data);
     }
 }
