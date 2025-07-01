@@ -2,14 +2,23 @@
 <?= $this->section('content') ?>
 
 <style>
+/* Remove gap for home page only */
+.navbar-spacer {
+    display: none;
+}
+
 /* Traditional Blangkon E-commerce Styles */
 .hero-section {
     background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);
     color: white;
-    padding: 4rem 0;
+    padding: 6rem 0; /* Increased padding for more height */
     margin-bottom: 3rem;
     position: relative;
     overflow: hidden;
+    margin-top: 0; /* Remove negative margin */
+    min-height: 70vh; /* Ensure minimum height */
+    display: flex;
+    align-items: center; /* Center content vertically */
 }
 
 .hero-section::before {
@@ -32,12 +41,13 @@
     position: relative;
     z-index: 2;
     text-align: center;
+    width: 100%;
 }
 
 .hero-title {
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
     animation: slideInDown 1s ease-out;
     color: #FFD700;
@@ -45,7 +55,7 @@
 
 .hero-subtitle {
     font-size: 1.3rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem; /* Increased margin for better spacing */
     opacity: 0.95;
     animation: slideInUp 1s ease-out 0.3s both;
     color: #F5DEB3;
@@ -265,6 +275,10 @@
     color: #F5DEB3;
 }
 
+.hero-stats {
+    margin-top: 2rem; /* Add more spacing from subtitle */
+}
+
 /* Modal styling updates */
 .modal-content {
     border: 2px solid #DAA520;
@@ -283,6 +297,11 @@
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;
+    }
+    
+    .hero-section {
+        min-height: 60vh; /* Adjust height for mobile */
+        padding: 4rem 0; /* Reduce padding on mobile */
     }
     
     .product-grid {
@@ -306,7 +325,7 @@
         <div class="hero-content">
             <h1 class="hero-title">Blangkis - Blangkon Pakis</h1>
             <p class="hero-subtitle">Produk Lokal Kualitas Premium</p>
-            <div class="hero-stats mt-4">
+            <div class="hero-stats">
                 <div class="row text-center">
                     <div class="col-md-4">
                         <h3 class="fw-bold"><?= count($product) ?>+</h3>
