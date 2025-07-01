@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: Blangkis
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
