@@ -345,6 +345,31 @@ $password = [
             height: 80px;
         }
     }
+
+    .btn-google {
+        background: #ffffff;
+        border: 2px solid #de4b39;
+        color: #de4b39;
+        font-weight: 600;
+        border-radius: 12px;
+        padding: 0.65rem 1rem;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 10px rgba(222, 75, 57, 0.15);
+    }
+
+    .btn-google:hover {
+        background: #ffffff;
+        border: 2px solid #de4b39;
+        color: #de4b39;
+        box-shadow: 0 5px 15px rgba(222, 75, 57, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .btn-google img {
+        margin-bottom: 1px;
+    }
+
 </style>
 
 <section class="login-container d-flex align-items-center justify-content-center">
@@ -397,14 +422,22 @@ $password = [
                                 Password Anda
                             </div>
                         </div>
-
                         <!-- Submit Button -->
                         <div class="d-grid">
                             <?= form_submit('submit', 'Login', ['class' => 'btn btn-login']) ?>
                         </div>
+                        <div class="d-grid"></div>
+                        <a href="<?= base_url('auth/googleLogin') ?>" class="btn btn-google d-flex align-items-center justify-content-center gap-2 mt-3">
+                            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" width="20" height="20" />
+                            <span>Login dengan Google</span>
+                        </a>    
 
+
+                        </div>
                     <?= form_close() ?>
                 </div>
+
+                
 
                 <!-- Footer Credits -->
                 <div class="footer-credits">

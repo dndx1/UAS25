@@ -4,51 +4,73 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\KonsumenModel;
+use App\Models\UserModel;
 
 class KonsumenController extends BaseController
 {
-    protected $konsumenModel;
+   protected $user;
 
     public function __construct()
     {
-        $this->konsumenModel = new KonsumenModel();
+        $this->user = new UserModel();
+        helper(['form', 'url']);
     }
 
     public function index()
     {
-   
-    $db = \Config\Database::connect();
-$builder = $db->table('user u');
-$builder->select('u.id, u.username, u.email, u.created_at');
-$builder->select('COUNT(t.id) AS total_transaksi, COALESCE(SUM(t.total_harga), 0) AS total_belanja');
-$builder->join('transaction t', 'u.username = t.username', 'left');
-$builder->where('u.role', 'guest');
-$builder->groupBy('u.id, u.username, u.email, u.created_at');
+        // Tampilkan hanya user dengan role 'user' atau 'guest'
+        $data['konsumen'] = $this->user
+            ->whereIn('role', ['user', 'guest'])
+            ->findAll();
+        return view('admin/v_konsumen', $data);
+    }
 
-
-
-    $query = $builder->get();
-    $data['konsumen'] = $query->getResultArray();
-
-     return view('Admin/v_konsumen', $data);
+    public function create()
+    {
+        return view('admin/v_konsumen_form');
     }
 
     public function store()
-    {
-        $this->konsumenModel->save([
-            'nama' => $this->request->getPost('nama'),
-            'email' => $this->request->getPost('email'),
-            'telepon' => $this->request->getPost('telepon'),
-            'alamat' => $this->request->getPost('alamat'),
-        ]);
+{
+    $this->user->save([
+        'username' => $this->request->getPost('username'),
+        'email'    => $this->request->getPost('email'),
+        'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+        'role'     => 'user' // ⬅️ Tambahkan ini!
+    ]);
 
-        return redirect()->to(base_url('admin/konsumen'))->with('success', 'Konsumen ditambahkan.');
+    return redirect()->to(base_url('admin/konsumen'));
+}
+
+
+    public function edit($id)
+    {
+        $data['konsumen'] = $this->user->find($id);
+        return view('admin/v_konsumen_form', $data);
+    }
+
+    public function update($id)
+    {
+        $data = [
+            'id'       => $id,
+            'username' => $this->request->getPost('username'),
+            'email'    => $this->request->getPost('email'),
+        ];
+
+        $password = $this->request->getPost('password');
+        if ($password) {
+            $data['password'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        $this->user->save($data);
+
+        return redirect()->to(base_url('admin/konsumen'));
     }
 
     public function delete($id)
     {
-        $this->konsumenModel->delete($id);
-        return redirect()->to(base_url('admin/konsumen'))->with('success', 'Konsumen dihapus.');
+        $this->user->delete($id);
+        return redirect()->to(base_url('admin/konsumen'));
     }
 
 }

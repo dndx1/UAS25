@@ -8,6 +8,9 @@ $routes->get('/', 'Home::index');
 $routes->get('login', 'AuthController::login');
 $routes->post('login', 'AuthController::login');
 $routes->get('logout', 'AuthController::logout');
+$routes->get('auth/googleLogin', 'AuthController::googleLogin');
+$routes->get('auth/googleCallback', 'AuthController::googleCallback');
+
 
 $routes->get('produk', 'ProdukController::index', ['filter' => 'auth']);
 $routes->get('keranjang', 'TransaksiController::index');
@@ -40,10 +43,19 @@ $routes->get('profile', 'User::profile');
 // TAMBAHAN ROUTE YANG BELUM ADA:
 // Admin routes
 $routes->get('admin/dashboard', 'Admin\DashboardController::index', ['filter' => 'auth']);
-$routes->get('v_konsumen', 'Admin\KonsumenController::index', ['filter' => 'auth']);
 $routes->group('admin', function($routes) {
 $routes->get('order', 'Admin\OrderController::index');
 });
+
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+    $routes->get('konsumen', 'KonsumenController::index');
+    $routes->get('konsumen/create', 'KonsumenController::create');
+    $routes->post('konsumen/store', 'KonsumenController::store');
+    $routes->get('konsumen/edit/(:num)', 'KonsumenController::edit/$1');
+    $routes->post('konsumen/update/(:num)', 'KonsumenController::update/$1');
+    $routes->get('konsumen/delete/(:num)', 'KonsumenController::delete/$1');
+});
+
 
 // Laporan routes
 // routes.php
