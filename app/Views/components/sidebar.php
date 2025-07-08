@@ -120,14 +120,14 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end user-menu">
                         <?php if (session()->get('isLoggedIn')): ?>
-                            <li><a class="dropdown-item" href="<?= base_url('profile') ?>"><i class="bi bi-person me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('/profile') ?>"><i class="bi bi-person me-2"></i>My Profile</a></li>
 
                             <?php if (session()->get('role') == 'customer') { ?>
                                 <li><a class="dropdown-item" href="<?= base_url('keranjang') ?>"><i class="bi bi-cart me-2"></i>My Cart</a></li>
                             <?php } ?>
 
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            
                             <li><a class="dropdown-item" href="<?= base_url('logout') ?>"><i class="bi bi-box-arrow-right me-2 text-danger"></i>Logout</a></li>
                         <?php else: ?>
                             <li><a class="dropdown-item text-primary" href="<?= base_url('login') ?>"><i class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
@@ -241,24 +241,15 @@
         }
 
         @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-
-            100% {
-                transform: scale(1);
-            }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         /* Search Form */
         .search-form {
             display: flex;
             align-items: flex-end;
-            /* Bikin input sejajar ke bawah */
         }
 
         .search-container {
@@ -341,7 +332,8 @@
             color: #FFF8DC !important;
         }
 
-        .user-menu {
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
             background: linear-gradient(135deg, #FFF8DC 0%, #F5DEB3 100%);
             border: 2px solid rgba(218, 165, 32, 0.3);
             border-radius: 15px;
@@ -349,32 +341,37 @@
             margin-top: 0.5rem;
             padding: 0.5rem 0;
             min-width: 200px;
+            /* Fix untuk mobile dropdown */
+            z-index: 1050;
+            position: absolute;
         }
 
-        .user-menu .dropdown-item {
+        .dropdown-menu .dropdown-item {
             padding: 0.7rem 1.5rem;
             color: #8B4513;
             font-weight: 500;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            border: none;
+            background: none;
         }
 
-        .user-menu .dropdown-item:hover {
+        .dropdown-menu .dropdown-item:hover {
             background: linear-gradient(135deg, #8B4513 0%, #DAA520 100%);
             color: white;
             transform: translateX(5px);
         }
 
-        .user-menu .dropdown-item.text-danger:hover {
+        .dropdown-menu .dropdown-item.text-danger:hover {
             background: linear-gradient(135deg, #DC143C 0%, #B22222 100%);
         }
 
-        .user-menu .dropdown-item.text-primary {
+        .dropdown-menu .dropdown-item.text-primary {
             color: #8B4513 !important;
         }
 
-        .user-menu .dropdown-item.text-primary:hover {
+        .dropdown-menu .dropdown-item.text-primary:hover {
             background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
             color: white !important;
         }
@@ -398,7 +395,6 @@
         /* Navbar Spacer */
         .navbar-spacer {
             height: 80px;
-            /* Adjust based on your navbar height */
         }
 
         /* Mobile Styles */
@@ -435,6 +431,51 @@
                 margin-top: 1rem;
                 padding-top: 1rem !important;
             }
+
+            /* Fix untuk dropdown di mobile */
+            .dropdown-menu {
+                position: static !important;
+                display: none;
+                float: none;
+                width: auto;
+                margin-top: 0;
+                background-color: rgba(245, 222, 179, 0.2);
+                border: 1px solid rgba(255, 215, 0, 0.4);
+                border-radius: 10px;
+                box-shadow: none;
+                transform: none !important;
+            }
+
+            .dropdown-menu.show {
+                display: block !important;
+            }
+
+            .dropdown-item {
+                padding: 0.5rem 1rem;
+                margin: 0.2rem 0;
+                border-radius: 8px;
+            }
+
+            /* Styling khusus untuk mobile dropdown */
+            .navbar-nav .dropdown-menu {
+                background: rgba(255, 215, 0, 0.1);
+                backdrop-filter: blur(5px);
+                border: 1px solid rgba(255, 215, 0, 0.3);
+                margin-top: 0.5rem;
+                padding: 0.5rem;
+            }
+
+            .navbar-nav .dropdown-item {
+                color: rgba(255, 248, 220, 0.9) !important;
+                border-radius: 8px;
+                margin: 0.2rem 0;
+            }
+
+            .navbar-nav .dropdown-item:hover {
+                background: rgba(255, 215, 0, 0.2);
+                color: #FFD700 !important;
+                transform: none;
+            }
         }
 
         @media (max-width: 576px) {
@@ -460,6 +501,12 @@
             .search-input {
                 margin-bottom: 0.5rem;
             }
+
+            /* Fix untuk dropdown di mobile kecil */
+            .dropdown-menu {
+                min-width: 100% !important;
+                margin-top: 0.25rem;
+            }
         }
 
         /* Smooth scrolling and navbar behavior */
@@ -481,7 +528,6 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -499,8 +545,30 @@
             background: linear-gradient(90deg, transparent, #FFD700, transparent);
             opacity: 0.6;
         }
+
+        /* Force dropdown to work on mobile */
+        .dropdown-toggle::after {
+            display: inline-block;
+            margin-left: 0.5em;
+            vertical-align: 0.255em;
+            content: "";
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
+            border-bottom: 0;
+            border-left: 0.3em solid transparent;
+        }
+
+        /* Ensure proper z-index layering */
+        .navbar {
+            z-index: 1030;
+        }
+
+        .dropdown-menu {
+            z-index: 1040;
+        }
     </style>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Add scroll effect to navbar
         document.addEventListener('DOMContentLoaded', function() {
@@ -514,8 +582,8 @@
                 }
             });
 
-            // Close mobile menu when clicking on a link
-            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            // Close mobile menu when clicking on a non-dropdown link
+            document.querySelectorAll('.navbar-nav .nav-link:not(.dropdown-toggle)').forEach(link => {
                 link.addEventListener('click', function() {
                     const navbarCollapse = document.querySelector('.navbar-collapse');
                     if (navbarCollapse.classList.contains('show')) {
@@ -529,22 +597,68 @@
             const searchInput = document.querySelector('.search-input');
             const searchForm = document.querySelector('.search-form');
 
-            searchForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const searchTerm = searchInput.value.trim();
-                if (searchTerm) {
-                    window.location.href = `/produk/search?q=${encodeURIComponent(searchTerm)}`;
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const searchTerm = searchInput.value.trim();
+                    if (searchTerm) {
+                        window.location.href = `/produk/search?q=${encodeURIComponent(searchTerm)}`;
+                    }
+                });
+            }
+
+            // Add typing effect to search placeholder
+            if (searchInput) {
+                let placeholderTexts = ['Search products...', 'Find amazing deals...', 'Discover new items...'];
+                let currentText = 0;
+
+                setInterval(() => {
+                    currentText = (currentText + 1) % placeholderTexts.length;
+                    searchInput.placeholder = placeholderTexts[currentText];
+                }, 3000);
+            }
+
+            // Fix untuk dropdown di mobile - Manual handling
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close other dropdowns
+                    dropdownToggles.forEach(otherToggle => {
+                        if (otherToggle !== toggle) {
+                            const otherMenu = otherToggle.nextElementSibling;
+                            if (otherMenu) {
+                                otherMenu.classList.remove('show');
+                            }
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    const menu = this.nextElementSibling;
+                    if (menu) {
+                        menu.classList.toggle('show');
+                    }
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
                 }
             });
 
-
-            // Add typing effect to search placeholder
-            let placeholderTexts = ['Search products...', 'Find amazing deals...', 'Discover new items...'];
-            let currentText = 0;
-
-            setInterval(() => {
-                currentText = (currentText + 1) % placeholderTexts.length;
-                searchInput.placeholder = placeholderTexts[currentText];
-            }, 3000);
+            // Close dropdown when clicking on dropdown item
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                });
+            });
         });
     </script>

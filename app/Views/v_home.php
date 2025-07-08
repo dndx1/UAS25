@@ -294,6 +294,188 @@
     color: #8B4513 !important;
 }
 
+/* ============= CART NOTIFICATION STYLES ============= */
+/* Notification Container */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Blangkon themed notification */
+.blangkon-notification {
+    background: linear-gradient(135deg, #8B4513 0%, #DAA520 50%, #CD853F 100%);
+    border: none;
+    border-radius: 15px;
+    color: white;
+    padding: 0;
+    margin-bottom: 15px;
+    box-shadow: 0 15px 35px rgba(139, 69, 19, 0.4);
+    animation: slideInRight 0.5s ease-out;
+    overflow: hidden;
+    position: relative;
+}
+
+.blangkon-notification::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+        rgba(255,215,0,0.15) 0%, 
+        transparent 50%, 
+        rgba(255,215,0,0.15) 100%);
+    animation: shimmer 2s infinite;
+}
+
+.notification-content {
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.notification-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.notification-icon {
+    background: rgba(255,215,0,0.2);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 20px;
+    color: #FFD700;
+    animation: pulse 2s infinite;
+}
+
+.notification-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    color: #FFD700;
+}
+
+.notification-message {
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0.95;
+    margin-bottom: 15px;
+    color: #F5DEB3;
+}
+
+.notification-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-cart {
+    background: rgba(255,215,0,0.9);
+    color: #8B4513;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-shadow: none;
+}
+
+.btn-cart:hover {
+    background: #FFD700;
+    color: #8B4513;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-close-notification {
+    background: none;
+    border: none;
+    color: #F5DEB3;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    padding: 5px;
+}
+
+.btn-close-notification:hover {
+    opacity: 1;
+    color: white;
+}
+
+/* Auto-hide progress bar */
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(255,215,0,0.6);
+    border-radius: 0 0 15px 15px;
+    animation: progress 6s linear forwards;
+}
+
+/* Notification Animations */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(400px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(400px);
+    }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes progress {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/* Hidden class for exit animation */
+.notification-hidden {
+    animation: slideOutRight 0.5s ease-out forwards;
+}
+
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;
@@ -308,8 +490,46 @@
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
+    
+    /* Mobile notification adjustments */
+    .notification-container {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
+    
+    .blangkon-notification {
+        margin-bottom: 10px;
+    }
+    
+    .notification-content {
+        padding: 15px;
+    }
+    
+    .notification-header {
+        margin-bottom: 10px;
+    }
+    
+    .notification-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .notification-title {
+        font-size: 16px;
+    }
+    
+    .notification-message {
+        font-size: 13px;
+    }
 }
 </style>
+
+<!-- Notification Container -->
+<div class="notification-container" id="notificationContainer">
+    <!-- Notifications will be dynamically added here -->
+</div>
 
 <?php if (session()->getFlashData('success')) { ?>
     <div class="success-alert alert alert-dismissible fade show" role="alert">
@@ -370,7 +590,7 @@
                     data-harga="<?= number_to_currency($item['harga'], 'IDR') ?>"
                     data-foto="<?= base_url("img/" . $item['foto']) ?>"
                 >
-                            <i class="fas fa-eye me-2"></i>LIhat Detail
+                            <i class="fas fa-eye me-2"></i>Lihat Detail
                         </button>
                     </div>
                 </div>
@@ -378,7 +598,7 @@
                 <div class="product-info">
                     <h3 class="product-name"><?php echo $item['nama'] ?></h3>
                     <div class="product-price"><?php echo number_to_currency($item['harga'], 'IDR') ?></div>
-                    <button type="submit" class="buy-btn">
+                    <button type="submit" class="buy-btn" onclick="handleAddToCart(event, '<?= esc($item['nama']) ?>')">
                         <i class="fas fa-shopping-cart me-2"></i>Masukkan Keranjang
                     </button>
                 </div>
@@ -442,12 +662,81 @@
             </div>
         </div>
     </div>
-    
 </section>
 
 <script>
-// Add some interactive effects
+// ============= CART NOTIFICATION FUNCTIONS =============
+function showBlangkonNotification(productName = 'Blangkon') {
+    const container = document.getElementById('notificationContainer');
+    
+    const notification = document.createElement('div');
+    notification.className = 'blangkon-notification';
+    notification.innerHTML = `
+        <div class="notification-content">
+            <div class="notification-header">
+                <div class="notification-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h4 class="notification-title">Berhasil Ditambahkan!</h4>
+            </div>
+            <div class="notification-message">
+                ${productName} telah berhasil ditambahkan ke keranjang belanja Anda.
+            </div>
+            <div class="notification-actions">
+                <a href="<?= base_url('keranjang') ?>" class="btn-cart">
+                    <i class="fas fa-shopping-cart"></i> Lihat Keranjang
+                </a>
+                <button class="btn-close-notification" onclick="closeNotification(this)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="progress-bar"></div>
+        </div>
+    `;
+    
+    container.appendChild(notification);
+    
+    // Auto-hide after 6 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            closeNotification(notification.querySelector('.btn-close-notification'));
+        }
+    }, 6000);
+}
+
+function closeNotification(button) {
+    const notification = button.closest('.blangkon-notification');
+    if (notification) {
+        notification.classList.add('notification-hidden');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 500);
+    }
+}
+
+function handleAddToCart(event, productName) {
+    // Let the form submit normally first
+    setTimeout(() => {
+        showBlangkonNotification(productName);
+    }, 100);
+}
+
+// ============= EXISTING INTERACTIVE EFFECTS =============
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if there's a success flash message and show notification
+    <?php if (session()->getFlashData('success')) { ?>
+        // Hide the old success alert after showing new notification
+        setTimeout(() => {
+            const oldAlert = document.querySelector('.success-alert');
+            if (oldAlert) {
+                oldAlert.style.display = 'none';
+            }
+            showBlangkonNotification();
+        }, 100);
+    <?php } ?>
+    
     // Animate cards on scroll
     const observerOptions = {
         threshold: 0.1,
@@ -513,6 +802,8 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+// Quick view modal functionality
 document.querySelectorAll('.quick-view-btn').forEach(button => {
     button.addEventListener('click', function() {
         document.getElementById('quickViewName').textContent = this.dataset.nama;
@@ -520,7 +811,6 @@ document.querySelectorAll('.quick-view-btn').forEach(button => {
         document.getElementById('quickViewImage').src = this.dataset.foto;
     });
 });
-
 </script>
 
 <?= $this->endSection() ?>

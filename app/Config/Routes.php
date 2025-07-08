@@ -38,7 +38,14 @@ $routes->get('get-location', 'TransaksiController::getLocation', ['filter' => 'a
 $routes->get('get-cost', 'TransaksiController::getCost', ['filter' => 'auth']);
 $routes->resource('api', ['controller' => 'apiController']);
 $routes->get('produk/search', 'ProdukController::search');
-$routes->get('profile', 'User::profile');
+
+// // Profil user (dengan filter auth supaya hanya yang login bisa akses)
+$routes->group('', ['filter' => 'auth'], function($routes) {
+    $routes->get('profile', 'User::index');
+    $routes->post('profile/update', 'User::update');
+    $routes->post('profile/change-password', 'User::changePassword');
+});
+
 
 // TAMBAHAN ROUTE YANG BELUM ADA:
 // Admin routes
@@ -80,3 +87,4 @@ $routes->post('admin/order/diterima/(:num)', 'Admin\OrderController::diterima/$1
 $routes->post('admin/order/update_status/(:num)', 'Admin\OrderController::update_status/$1');
 // Tambahkan route ini di bagian admin routes (sebelum route detail yang sudah ada)
 $routes->get('admin/order/get_detail/(:num)', 'Admin\OrderController::getDetail/$1');
+

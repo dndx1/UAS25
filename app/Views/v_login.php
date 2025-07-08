@@ -73,22 +73,27 @@ $password = [
     }
     
     .blangkon-logo {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 1rem;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 1.5rem;
         position: relative;
         display: inline-block;
     }
     
-    .blangkon-svg {
+    .blangkon-icon {
         width: 100%;
         height: 100%;
-        filter: drop-shadow(0 10px 30px rgba(139, 69, 19, 0.3));
+        object-fit: contain;
+        filter: drop-shadow(0 15px 35px rgba(139, 69, 19, 0.4));
         transition: transform 0.3s ease;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 15px;
+        border: 3px solid rgba(139, 69, 19, 0.1);
     }
     
-    .blangkon-svg:hover {
-        transform: scale(1.05) rotate(5deg);
+    .blangkon-icon:hover {
+        transform: scale(1.08) rotate(8deg);
     }
     
     .brand-title {
@@ -341,8 +346,8 @@ $password = [
         }
         
         .blangkon-logo {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
         }
     }
 
@@ -386,7 +391,14 @@ $password = [
                 <div class="login-card p-5">
                     <div class="batik-decoration"></div>
                     
-                    <!-- Logo Section with Blangkon -->
+                    <!-- Logo Section with Blangkon Icon -->
+                    <div class="logo-container">
+                        <div class="blangkon-logo">
+                            <img src="<?= base_url('NiceAdmin/assets/img/Blangkon.png') ?>" alt="Blangkon Icon" class="blangkon-icon">
+                        </div>
+                       
+                        
+                    </div>
                    
                     <!-- Login Header -->
                     <div class="login-header">
@@ -432,16 +444,12 @@ $password = [
                             <span>Login dengan Google</span>
                         </a>    
 
-
-                        </div>
                     <?= form_close() ?>
                 </div>
 
-                
-
                 <!-- Footer Credits -->
                 <div class="footer-credits">
-                    Dibuat dengan<a href="https://bootstrapmade.com/" target="_blank">BootstrapMade</a>
+                    Dibuat dengan <a href="https://bootstrapmade.com/" target="_blank">BootstrapMade</a>
                     <br><small>Blangkis - Blangkon Pakis</small>
                 </div>
             </div>
